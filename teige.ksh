@@ -141,8 +141,8 @@ fi
 #Paranoid checks 
 if [[ ! (-d $WROOT/$WEB) ]]; then 
 mkdir -p $WROOT/$WEB || print "Path to website $WROOT/$WEB doesn't exist and I can't create it..";
-touch
-exit;fi
+touch $WROOT/$WEB/index.html || exit
+fi
 if [[ ! (-d $LOCAL) ]]; then 
 mkdir -p $LOCAL || print "Directory for local data doesn't exist and I can't create it."
 touch $LOCAL/feed.txt || exit
