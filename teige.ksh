@@ -1,4 +1,7 @@
 #!/bin/ksh
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY.
+
 USERVAR="$HOME/.teige.conf" 	#path to default config file. If it doesn't exist
 				#running teige for the first time will create it.
 
@@ -102,7 +105,7 @@ USAGE="usage: teige [-h] [-v] [-bFU] [-c config] [-e ID] [-r ID] file|url"
 
 VERSION() {
 print "teige is a simple pure html image gallery manager."
-print "teige 1"
+print "teige 1.0 - published under GPL-v3"
 print "Written by Tomáš Rodr in 2022." 
 print "https://triapul.cz/teige"
 }
