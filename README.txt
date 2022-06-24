@@ -24,6 +24,12 @@ ImageMagick currently does three things. Checks that the input
 file is an image, resizes posted images to create a preview and
 optionally blurs the preview if flag -b is supplied.
 
+Every post has a unique ID which serves both as a url and a method
+of editing and removing a post.
+
+Information about each post is stored locally in $LOCAL, where
+teige stores variables for each post from which it rebuilds the
+gallery when used with -F or -e.
 
 Initialization
 ==============
@@ -49,25 +55,28 @@ WROOT		Full path to a website's root directory.
 		/home/marek/public_html
 
 WEB		Relative path to teige's directory inside $WROOT.
+		User running teige must have write and read 
+		permissions here.
 		Default: teige.
+
+LOCAL		Full path where teige stores offline data for each
+		post used for rebuilding. Default: $HOME/.teige
 
 WEBSITE		Url of your website. This is only printed after using
 		teige to get a quick link to the post in the form
 		$WEBSITE/$ID. 
 
 teige will create new posts in $WROOT/$WEB. The user running teige
-needs write and read permissions on $WEB.
+needs write and read permissions on $WEB. The following variables
+in the configuration file are used for the construction of the 
+gallery.
 
-PROFILOVKA	Path to a profile picture.
+PROFILOVKA	Path to a profile picture. Shows up on /index.html.
 
 CSS		Path to a css style sheet. teige comes with
 		a default style sheet gal.css. By default 
 		it expects it in $WROOT/ (you have to put it 
 		there yourself.)
-
-WEB		Root of teige's gallery. 'teige' by default. teige
-		needs write and read permissions on this directory.
-		ie: teige #which would be website.cz/teige
 
 NAME		String. Title of your gallery.
 
@@ -92,10 +101,10 @@ Run
 ===
 run teige with:
 
-	ksh teige
+	ksh teige.ksh
 
-The rest of this README suggests you run teige with ksh teige, or
-place it in your $PATH.
+The rest of this README suggests you run teige with ksh teige.ksh, or
+place it inside your $PATH.
 
 Options
 =======
@@ -127,12 +136,36 @@ If everything goes smooth, all you ever need to do is run
 This checks that the file exists and if it does, proceeds to
 ask the user for a TITLE, which is the h1 of the new post,
 IMGALT, which is the alt= option of the img, and DESC, which 
-is a paragraph description of your post. 
+is a paragraph description of your post. These variables 
+along with date and information about the images are stored
+locally in $LOCAL/$ID.var
 
 Next it creates a resized copy to use for a preview image
 and copies the original to $WROOT/$WEB/$ID.
 
-If you find yourself editting the html part of teige and want
-to apply it to every previously posted image, use the -b flag.
+If you find yourself editting the html part of teigei.ksh and 
+want to apply it to every previously posted image, use -F flag,
+which rebuilds the entire gallery from $LOCAL/ where it stores
+variables for each post. Images are NOT rebuilt again and not 
+stored locally. Their only copy exists in $WROOT/$WEB/$ID
+
+When using -U, instead of a file, enter a URL of a remote image.
+(this is subject to future foolproofing and currently exists
+as a incomplete feature.)
 
 The -b option blurs the preview of your post.
+
+Both -e and -r interactively edit and remove a post by ID.
+
+Have fun
+
+Origin
+======
+teige is named after Karel Teige, a Czechoslovak surrealist
+and a renowned collagist.
+
+Autor
+=====
+teige was written in 2022 by Tomáš Rodr.
+triapul.cz/teige
+Published under GPL-v3
